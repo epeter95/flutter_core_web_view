@@ -26,9 +26,22 @@ class _WebViewAppState extends State<WebViewApp> {
     super.initState();
     controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(
-        Uri.parse('http://10.0.2.2:4200'),
-      );
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+        onWebResourceError: (WebResourceError error) {},
+        onNavigationRequest: (NavigationRequest request) {
+          return NavigationDecision.navigate;
+        },
+      ),
+    )
+    ..loadRequest(
+      Uri.parse('http://10.0.2.2:4200'),
+    );
   }
 
   @override
